@@ -1,6 +1,6 @@
 {
   "name": "website-embedding",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,8 +8,7 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
   "devDependencies": {
-    "uglify-js": "^3.1.4"
+    "uglify-js": "^3.19.3"
   }
 }

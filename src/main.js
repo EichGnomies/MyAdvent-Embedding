@@ -1,10 +1,17 @@
-iFrameResize({ heightCalculationMethod: 'lowestElement', checkOrigin: false }, '.myadvent-calendar');
 document.addEventListener('scroll', function(e) {
-  var calendarElement = document.getElementsByClassName('myadvent-calendar')[0];
-  if (!calendarElement) return;
-  var originalDistanceToTop = calendarElement.getBoundingClientRect().y;
-  var scrollOffset = 0;
-  if (originalDistanceToTop < 0) scrollOffset = -originalDistanceToTop;
-  calendarElement.contentWindow.postMessage(JSON.stringify({ scrollOffset: scrollOffset }), '*');
-  console.log(scrollOffset);
+  const calendars = document.getElementsByClassName('myadvent-calendar');
+  for (let calendar of calendars) {
+    const originalDistanceToTop = calendar.getBoundingClientRect().y;
+    let scrollOffset = 0;
+    if (originalDistanceToTop < 0) scrollOffset = -originalDistanceToTop;
+    calendar.contentWindow.postMessage({ scrollOffset: scrollOffset }, '*');
+  }
+});
+
+window.addEventListener('message', e=> {
+  if (e.data?.action !== 'SET_HEIGHT') return;
+  const calendars = window.document.getElementsByClassName('myadvent-calendar');
+  for (let calendar of calendars) {
+    calendar.style.height = `${e.data.height}px`;
+  }
 });
