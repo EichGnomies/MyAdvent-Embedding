@@ -1,3 +1,5 @@
+let resizerLoadedSet = false;
+
 document.addEventListener('scroll', function(e) {
   const calendars = document.getElementsByClassName('myadvent-calendar');
   for (let calendar of calendars) {
@@ -13,5 +15,9 @@ window.addEventListener('message', e=> {
   const calendars = window.document.getElementsByClassName('myadvent-calendar');
   for (let calendar of calendars) {
     calendar.style.height = `${e.data.height}px`;
+    if (!resizerLoadedSet) {
+      resizerLoadedSet = true;
+      calendar.contentWindow.postMessage({ resizerLoaded: true }, '*');
+    }
   }
 });
